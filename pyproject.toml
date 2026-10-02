@@ -1,0 +1,58 @@
+# pyproject.toml
+
+[tool.ruff]
+# Длина строки.
+line-length = 100
+
+# Целевая версия Python.
+target-version = "py310"
+
+# Исключаем из проверки папки, которые не являются нашим кодом.
+exclude = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint]
+# Список правил, которые мы включаем в проверку.
+select = [
+    "E",    # Базовые ошибки стиля (pycodestyle)
+    "F",    # Логические ошибки (pyflakes)
+    "W",    # Предупреждения о стиле
+    "I",    # Сортировка импортов (isort)
+    "N",    # Соглашения об именовании (pep8-naming)
+    "B",    # Поиск распространённых ошибок (flake8-bugbear)
+    "C4",   # Улучшения для списков и словарей (flake8-comprehensions)
+    "UP",   # Предложения по использованию современного синтаксиса Python (pyupgrade)
+]
+
+# Правила, которые мы игнорируем. E501 — длина строки, так как её контролирует line-length.
+ignore = ["E501"]
+
+# Точечные исключения: в численном коде матрицы принято называть
+# заглавными (W, B, K) — это математическая нотация, а не нарушение стиля.
+[tool.ruff.lint.per-file-ignores]
+"viz/visualizer.py" = ["N803", "N806"]
+"training/trainer.py" = ["N806"]
+
+# Эти правила Ruff будет пытаться исправить автоматически.
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.isort]
+# Настройка сортировки импортов, чтобы `game`, `model` и т.д. шли в правильной группе.
+known-first-party = ["game", "model", "agent", "training", "viz", "config"]
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.pytest.ini_options]
+# Корень проекта в sys.path — иначе pytest не видит пакеты game/, agent/ и т.д.
+pythonpath = ["."]
+testpaths = ["tests"]
