@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# виртуальное окружение
+.venv/
+venv/
+
+# кэши инструментов
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# локальные результаты
+*.csv
+qnet.pt
